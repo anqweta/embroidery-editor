@@ -20,7 +20,7 @@
       </ScrollPane>
       <Pane layoutY="3.0" prefHeight="536.0" prefWidth="168.0" style="-fx-border-color: #e8e8e8; -fx-border-width: 2px; -fx-border-radius: 5px; -fx-background-color: #fbf1e8;">
          <children>
-            <Spinner fx:id="callWidth" editable="true" layoutX="23.0" layoutY="275.0" prefHeight="25.0" prefWidth="125.0" style="-fx-base: #f9ddd9; -fx-border-color: #d4aba7;" />
+            <Spinner fx:id="inputColumns" editable="true" layoutX="23.0" layoutY="275.0" prefHeight="25.0" prefWidth="125.0" style="-fx-base: #f9ddd9; -fx-border-color: #d4aba7;" />
             <ColorPicker fx:id="changeColor" layoutX="22.0" layoutY="180.0" prefHeight="25.0" prefWidth="125.0" style="-fx-background-color: #f9ddd9; -fx-border-color: #d4aba7;" />
             <Button fx:id="settings" layoutX="22.0" layoutY="481.0" mnemonicParsing="false" onAction="#openSettings" prefWidth="125.0" text="Settings" />
             <Text fill="#4f1e1a" layoutX="22.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Color" wrappingWidth="63.0">
@@ -33,7 +33,7 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <Spinner fx:id="callHeight" editable="true" layoutX="22.0" layoutY="340.0" prefHeight="25.0" prefWidth="125.0" style="-fx-base: #f9ddd9; -fx-border-color: #d4aba7;" />
+            <Spinner fx:id="inputRow" editable="true" layoutX="22.0" layoutY="340.0" prefHeight="25.0" prefWidth="125.0" style="-fx-base: #f9ddd9; -fx-border-color: #d4aba7;" />
             <Text fill="#4f1e1a" layoutX="22.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Call width" wrappingWidth="86.93670654296875" />
             <Text fill="#4f1e1a" layoutX="22.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Call height" wrappingWidth="86.93670654296875" />
             <TilePane layoutX="22.0" layoutY="76.0" prefHeight="94.0" prefWidth="125.0">
@@ -52,11 +52,12 @@
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a9a9a9" height="30.0" stroke="#4f1e1a" strokeType="INSIDE" width="30.0" />
                </children>
             </TilePane>
-            <Text fill="#4f1e1a" layoutX="22.0" layoutY="394.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reverse" wrappingWidth="63.0">
+            <Text fill="#4f1e1a" layoutX="22.0" layoutY="428.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reverse" wrappingWidth="63.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Text>
+            <Button fx:id="buttonChangeSize" layoutX="22.0" layoutY="375.0" mnemonicParsing="false" onAction="#setNewGridSize" prefWidth="125.0" style="-fx-border-color: #d4aba7; -fx-background-color: #f9ddd9;" text="Apply all" />
          </children>
       </Pane>
       <Pane prefHeight="48.0" prefWidth="920.0" style="-fx-border-color: #e8e8e8; -fx-border-width: 2px; -fx-border-radius: 5px; -fx-background-color: #faddd9;">
