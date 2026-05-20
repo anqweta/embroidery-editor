@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.stage.Stage?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.embroideryeditor.SettingsController" fx:id="settingsRoot">
+            <children>
+               <Button fx:id="cancel" onAction="#closeSettings" layoutX="94.0" layoutY="149.0" mnemonicParsing="false" text="Cancel" />
+               <Button fx:id="apply" layoutX="257.0" layoutY="149.0" mnemonicParsing="false" text="Apply" />
+               <Label layoutX="106.0" layoutY="20.0" prefHeight="18.0" prefWidth="188.0" text="Number of cells to the width" />
+               <Label layoutX="108.0" layoutY="81.0" prefHeight="18.0" prefWidth="188.0" text="Number of cells to the height" />
+               <TextField fx:id="cellsHeight" layoutX="126.0" layoutY="100.0" />
+               <TextField fx:id="cellsWidth" layoutX="126.0" layoutY="47.0" />
+            </children>
+</AnchorPane>
