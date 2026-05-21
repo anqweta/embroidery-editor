@@ -5,24 +5,24 @@
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.embroideryeditor.MainController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="920.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.embroideryeditor.MainController">
    <children>
       <ScrollPane layoutX="168.0" layoutY="47.0" prefHeight="495.0" prefWidth="750.0">
          <content>
-            <Canvas id="drawingCanvas" fx:id="drawingCanvas" height="495.0" width="750.0" />
+            <Canvas id="drawingCanvas" fx:id="drawingCanvas" height="520.0" width="750.0" />
          </content>
       </ScrollPane>
-      <Pane layoutY="3.0" prefHeight="536.0" prefWidth="168.0" style="-fx-border-color: #e8e8e8; -fx-border-width: 2px; -fx-border-radius: 5px; -fx-background-color: #fbf1e8;">
+      <Pane layoutY="3.0" prefHeight="568.0" prefWidth="168.0" style="-fx-border-color: #e8e8e8; -fx-border-width: 2px; -fx-border-radius: 5px; -fx-background-color: #fbf1e8;">
          <children>
             <Spinner fx:id="inputColumns" editable="true" layoutX="23.0" layoutY="275.0" prefHeight="25.0" prefWidth="125.0" style="-fx-base: #f9ddd9; -fx-border-color: #d4aba7;" />
             <ColorPicker fx:id="changeColor" layoutX="22.0" layoutY="180.0" prefHeight="25.0" prefWidth="125.0" style="-fx-background-color: #f9ddd9; -fx-border-color: #d4aba7;" />
-            <Button fx:id="settings" layoutX="22.0" layoutY="481.0" mnemonicParsing="false" onAction="#openSettings" prefWidth="125.0" text="Settings" />
             <Text fill="#4f1e1a" layoutX="22.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Color" wrappingWidth="63.0">
                <font>
                   <Font size="16.0" />
@@ -57,7 +57,9 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <Button fx:id="buttonChangeSize" layoutX="22.0" layoutY="375.0" mnemonicParsing="false" onAction="#setNewGridSize" prefWidth="125.0" style="-fx-border-color: #d4aba7; -fx-background-color: #f9ddd9;" text="Apply all" />
+            <Button fx:id="buttonChangeSize" layoutX="22.0" layoutY="375.0" mnemonicParsing="false" onAction="#setNewGridSize" prefWidth="125.0" style="-fx-border-color: #d4aba7; -fx-background-color: #f9ddd9;" styleClass="symmetry-btn" text="Apply all" />
+            <ToggleButton fx:id="btnHorizontalSymmetry" layoutX="22.0" layoutY="439.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="125.0" style="-fx-border-color: #d4aba7; -fx-background-color: #f9ddd9;" styleClass="symmetry-btn" text="Horizontal" />
+            <ToggleButton fx:id="btnVerticalSymmetry" layoutX="23.0" layoutY="476.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="125.0" style="-fx-border-color: #d4aba7; -fx-background-color: #f9ddd9;" styleClass="symmetry-btn" text="Vertically" />
          </children>
       </Pane>
       <Pane prefHeight="48.0" prefWidth="920.0" style="-fx-border-color: #e8e8e8; -fx-border-width: 2px; -fx-border-radius: 5px; -fx-background-color: #faddd9;">

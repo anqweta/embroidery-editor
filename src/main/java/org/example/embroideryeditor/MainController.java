@@ -6,13 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
+
 import java.io.IOException;
 
 public class MainController {
@@ -37,6 +35,13 @@ public class MainController {
     private Color[][] pixelData; //для збереження малюнків.
 
     @FXML
+    private ToggleButton btnVerticalSymmetry;
+
+    @FXML
+    private ToggleButton btnHorizontalSymmetry;
+
+
+    @FXML
     public void initialize() {
         GraphicsContext gc = drawingCanvas.getGraphicsContext2D();
         drawGrid(gc, 30, 30);
@@ -56,7 +61,7 @@ public class MainController {
 
             Color selectedColor =  changeColor.getValue();
             //СЮДИ ДОДАТИ СВІТЧ З РАЗНИМИ ВИПАДКАМИ РЕВЕРСАІ
-            drawVerticalReverse(gc, gridX, gridY, selectedColor);
+            drawWithSymmetry(gc, gridX, gridY, selectedColor);
         });
     }
 
@@ -141,13 +146,36 @@ public class MainController {
 
     private void drawHorizontalReverse(GraphicsContext gc, int gridX, int gridY, Color color) {
         int reverseY = getInputRow() - gridY - 1;
+        gc.setFill(color);
         gc.fillRect(gridX * PIXEL_SIZE, gridY * PIXEL_SIZE, PIXEL_SIZE, PIXEL_SIZE);
         gc.fillRect(gridX * PIXEL_SIZE, reverseY * PIXEL_SIZE, PIXEL_SIZE, PIXEL_SIZE);
+        pixelData[gridX][gridY] = color;
+        pixelData[gridX][reverseY] = color;
     }
     private void drawVerticalReverse(GraphicsContext gc, int gridX, int gridY, Color color) {
         int reverseX = getInputColumns() - gridX - 1;
+        gc.setFill(color);
         gc.fillRect(gridX * PIXEL_SIZE, gridY * PIXEL_SIZE, PIXEL_SIZE, PIXEL_SIZE);
         gc.fillRect(reverseX * PIXEL_SIZE, gridY * PIXEL_SIZE, PIXEL_SIZE, PIXEL_SIZE);
+        pixelData[gridX][gridY] = color;
+        pixelData[reverseX][gridY] = color;
+    }
+
+    private void drawWithSymmetry(GraphicsContext gc, int gridX, int gridY, Color color) {
+        boolean vertSym = btnVerticalSymmetry.isSelected();
+        boolean horizSym = btnHorizontalSymmetry.isSelected();
+        if (!vertSym && !horizSym) {
+            drawPixel(gc, gridX, gridY, color);
+        }
+        if (vertSym && horizSym) {
+            drawFullReverse(gc, gridX, gridY, color);
+        }
+        if (vertSym) {
+            drawVerticalReverse(gc, gridX, gridY, color);
+        }
+        if (horizSym) {
+            drawHorizontalReverse(gc, gridX, gridY, color);
+        }
     }
 
     @FXML
