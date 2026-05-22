@@ -6,6 +6,7 @@ module org.example.embroideryeditor {
     requires org.kordamp.bootstrapfx.core;
     requires java.desktop;
     requires javafx.graphics;
+    requires javafx.swing;
 
     opens org.example.embroideryeditor to javafx.fxml;
     exports org.example.embroideryeditor;

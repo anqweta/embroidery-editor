@@ -1,3 +1,14 @@
 .symmetry-btn:selected {
     -fx-background-color:  #d4aba7 !important;
 }
+.nav-button {
+    -fx-transition: -fx-background-color 0.3s ease-out !important;
+}
+Button:hover, ToggleButton:hover {
+    -fx-cursor: hand;
+}
+.nav-button:hover {
+    -fx-background-color: #4f1e1a !important;
+    -fx-text-fill:  #f5c4c0 !important;
+    -fx-cursor: hand;
+}

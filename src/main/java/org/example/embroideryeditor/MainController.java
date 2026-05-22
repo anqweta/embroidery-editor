@@ -7,11 +7,23 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
+import javafx.scene.shape.Rectangle;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class MainController {
     @FXML
@@ -35,11 +47,18 @@ public class MainController {
     private Color[][] pixelData; //для збереження малюнків.
 
     @FXML
+    private ToggleButton removePixel;
+
+    @FXML
     private ToggleButton btnVerticalSymmetry;
 
     @FXML
     private ToggleButton btnHorizontalSymmetry;
 
+    private Color selectedColor;
+
+    @FXML
+    private TilePane colorPalette;
 
     @FXML
     public void initialize() {
@@ -53,15 +72,20 @@ public class MainController {
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 128, 30);
         inputColumns.setValueFactory(colFactory);
         inputRow.setValueFactory(rowFactory);
+        pickColorOnTailPane();
+
         drawingCanvas.setOnMouseClicked(event -> {
+            boolean btnRemove = removePixel.isSelected();
             double mouseX = event.getX();
             double mouseY = event.getY();
             int gridX = (int) (mouseX / PIXEL_SIZE);
             int gridY = (int) (mouseY / PIXEL_SIZE);
-
-            Color selectedColor =  changeColor.getValue();
-            //СЮДИ ДОДАТИ СВІТЧ З РАЗНИМИ ВИПАДКАМИ РЕВЕРСАІ
-            drawWithSymmetry(gc, gridX, gridY, selectedColor);
+            selectedColor =  changeColor.getValue();
+            if (btnRemove) {
+                drawWithSymmetry(gc, gridX, gridY, Color.valueOf("#f4f4f4"));
+            } else {
+                drawWithSymmetry(gc, gridX, gridY, selectedColor);
+            }
         });
     }
 
@@ -179,6 +203,74 @@ public class MainController {
     }
 
     @FXML
+    private void saveCanvas() {
+        WritableImage writableImage = new WritableImage((int) drawingCanvas.getWidth(), (int) drawingCanvas.getHeight());
+        drawingCanvas.snapshot(null, writableImage);
+        BufferedImage bufferedImage = SwingFXUtils.fromFXImage(writableImage, null);
+        try {
+            File outputFile = new File("canvas.png");
+            ImageIO.write(bufferedImage, "png", outputFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void loadCanvas() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Оберіть малюнок для завантаження");
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Зображення (PNG)", "*.png")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(drawingCanvas.getScene().getWindow());
+
+        if (selectedFile != null) {
+            Image image = new Image(selectedFile.toURI().toString());
+            GraphicsContext gc = drawingCanvas.getGraphicsContext2D();
+
+            // 1. Визначаємо нові розміри сітки на основі розміру картинки
+            int newCols = (int) (image.getWidth() / PIXEL_SIZE);
+            int newRows = (int) (image.getHeight() / PIXEL_SIZE);
+
+            // Оновлюємо значення в спінерах, щоб інтерфейс відповідав малюнку
+            inputColumns.getValueFactory().setValue(newCols);
+            inputRow.getValueFactory().setValue(newRows);
+
+            // Оновлюємо розміри Canvas і масиву даних
+            drawingCanvas.setWidth(image.getWidth());
+            drawingCanvas.setHeight(image.getHeight());
+            pixelData = new Color[newCols][newRows];
+
+            // Очищаємо полотно
+            gc.clearRect(0, 0, drawingCanvas.getWidth(), drawingCanvas.getHeight());
+
+            // 2. Зчитуємо кольори з картинки
+            javafx.scene.image.PixelReader pixelReader = image.getPixelReader();
+
+            for (int i = 0; i < newCols; i++) {
+                for (int j = 0; j < newRows; j++) {
+                    // Беремо колір з ЦЕНТРУ кожної клітинки (наприклад 15, 15).
+                    // Це потрібно, щоб не захопити чорну лінію сітки (яка знаходиться на краях)
+                    int pixelX = i * PIXEL_SIZE + (PIXEL_SIZE / 2);
+                    int pixelY = j * PIXEL_SIZE + (PIXEL_SIZE / 2);
+
+                    Color color = pixelReader.getColor(pixelX, pixelY);
+
+                    // Якщо колір не повністю прозорий і не чорний (колір самої сітки)
+                    if (color.getOpacity() > 0 && !color.equals(Color.BLACK)) {
+                        // Використовуємо твій існуючий метод для відмальовки та запису в масив
+                        drawPixel(gc, i, j, color);
+                    }
+                }
+            }
+
+            // 3. Відмальовуємо сітку поверх відновлених пікселів
+            drawGrid(gc, newCols, newRows);
+        }
+    }
+
+    @FXML
     private int getInputColumns() {
         return  inputColumns.getValue();
     }
@@ -186,6 +278,34 @@ public class MainController {
     private int getInputRow() {
         return inputRow.getValue();
     }
+
+    private void pickColorOnTailPane() {
+        colorPalette.setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.getTarget() instanceof Rectangle) {
+                Rectangle rectangle = (Rectangle) mouseEvent.getTarget();
+                selectedColor = (Color) rectangle.getFill();
+                changeColor.setValue(selectedColor);
+            }
+        });
+    }
+
+    @FXML
+    private void newProject() {
+        removeOldGrid(drawingCanvas.getGraphicsContext2D());
+        drawGrid(drawingCanvas.getGraphicsContext2D(), 30, 30);
+        pixelData = new Color[getInputColumns()][getInputRow()];
+    }
+
+   /* @FXML
+    private void removePixel() {
+        drawingCanvas.setOnMouseClicked(event -> {
+               double mouseX = event.getX();
+               double mouseY = event.getY();
+                int gridX = (int) (mouseX / PIXEL_SIZE);
+                int gridY = (int) (mouseY / PIXEL_SIZE);
+               drawingCanvas.getGraphicsContext2D().clearRect(mouseX, mouseY, 30, 30);
+        });
+    } */
 
 
 }

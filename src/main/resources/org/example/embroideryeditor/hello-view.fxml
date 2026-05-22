@@ -21,22 +21,22 @@
       </ScrollPane>
       <Pane layoutY="3.0" prefHeight="568.0" prefWidth="168.0" style="-fx-border-color: #e8e8e8; -fx-border-width: 2px; -fx-border-radius: 5px; -fx-background-color: #fbf1e8;">
          <children>
-            <Spinner fx:id="inputColumns" editable="true" layoutX="23.0" layoutY="275.0" prefHeight="25.0" prefWidth="125.0" style="-fx-base: #f9ddd9; -fx-border-color: #d4aba7;" />
+            <Spinner fx:id="inputColumns" editable="true" layoutX="22.0" layoutY="297.0" prefHeight="25.0" prefWidth="125.0" style="-fx-base: #f9ddd9; -fx-border-color: #d4aba7;" />
             <ColorPicker fx:id="changeColor" layoutX="22.0" layoutY="180.0" prefHeight="25.0" prefWidth="125.0" style="-fx-background-color: #f9ddd9; -fx-border-color: #d4aba7;" />
             <Text fill="#4f1e1a" layoutX="22.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Color" wrappingWidth="63.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Text>
-            <Text fill="#4f1e1a" layoutX="22.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Size grid" wrappingWidth="63.0">
+            <Text fill="#4f1e1a" layoutX="22.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Size grid" wrappingWidth="63.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Text>
-            <Spinner fx:id="inputRow" editable="true" layoutX="22.0" layoutY="340.0" prefHeight="25.0" prefWidth="125.0" style="-fx-base: #f9ddd9; -fx-border-color: #d4aba7;" />
-            <Text fill="#4f1e1a" layoutX="22.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Call width" wrappingWidth="86.93670654296875" />
-            <Text fill="#4f1e1a" layoutX="22.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Call height" wrappingWidth="86.93670654296875" />
-            <TilePane layoutX="22.0" layoutY="76.0" prefHeight="94.0" prefWidth="125.0">
+            <Spinner fx:id="inputRow" editable="true" layoutX="22.0" layoutY="353.0" prefHeight="25.0" prefWidth="125.0" style="-fx-base: #f9ddd9; -fx-border-color: #d4aba7;" />
+            <Text fill="#4f1e1a" layoutX="22.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Call width" wrappingWidth="86.93670654296875" />
+            <Text fill="#4f1e1a" layoutX="22.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Call height" wrappingWidth="86.93670654296875" />
+            <TilePane fx:id="colorPalette" layoutX="22.0" layoutY="76.0" prefHeight="94.0" prefWidth="125.0">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff9d9d" height="30.0" stroke="#4f1e1a" strokeType="INSIDE" width="30.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffab76" height="30.0" stroke="#4f1e1a" strokeType="INSIDE" width="30.0" />
@@ -46,35 +46,36 @@
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#81c2ff" height="30.0" stroke="#4f1e1a" strokeType="INSIDE" width="30.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7e9cff" height="30.0" stroke="#4f1e1a" strokeType="INSIDE" width="30.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#be7dff" height="30.0" stroke="#4f1e1a" strokeType="INSIDE" width="30.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f9b6ff" height="30.0" stroke="#4f1e1a" strokeType="INSIDE" width="30.0" />
+                  <Rectangle fx:id="tilePane" arcHeight="5.0" arcWidth="5.0" fill="#f9b6ff" height="30.0" stroke="#4f1e1a" strokeType="INSIDE" width="30.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="30.0" stroke="#4f1e1a" strokeType="INSIDE" width="30.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" height="30.0" stroke="#4f1e1a" strokeType="INSIDE" width="30.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a9a9a9" height="30.0" stroke="#4f1e1a" strokeType="INSIDE" width="30.0" />
                </children>
             </TilePane>
-            <Text fill="#4f1e1a" layoutX="22.0" layoutY="428.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reverse" wrappingWidth="63.0">
+            <Text fill="#4f1e1a" layoutX="22.0" layoutY="438.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reverse" wrappingWidth="63.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Text>
-            <Button fx:id="buttonChangeSize" layoutX="22.0" layoutY="375.0" mnemonicParsing="false" onAction="#setNewGridSize" prefWidth="125.0" style="-fx-border-color: #d4aba7; -fx-background-color: #f9ddd9;" styleClass="symmetry-btn" text="Apply all" />
-            <ToggleButton fx:id="btnHorizontalSymmetry" layoutX="22.0" layoutY="439.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="125.0" style="-fx-border-color: #d4aba7; -fx-background-color: #f9ddd9;" styleClass="symmetry-btn" text="Horizontal" />
-            <ToggleButton fx:id="btnVerticalSymmetry" layoutX="23.0" layoutY="476.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="125.0" style="-fx-border-color: #d4aba7; -fx-background-color: #f9ddd9;" styleClass="symmetry-btn" text="Vertically" />
+            <Button fx:id="buttonChangeSize" layoutX="22.0" layoutY="388.0" mnemonicParsing="false" onAction="#setNewGridSize" prefWidth="125.0" style="-fx-border-color: #d4aba7; -fx-background-color: #f9ddd9;" styleClass="symmetry-btn" text="Apply all" />
+            <ToggleButton fx:id="btnHorizontalSymmetry" layoutX="22.0" layoutY="453.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="125.0" style="-fx-border-color: #d4aba7; -fx-background-color: #f9ddd9;" styleClass="symmetry-btn" text="Horizontal" />
+            <ToggleButton fx:id="btnVerticalSymmetry" layoutX="23.0" layoutY="491.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="125.0" style="-fx-border-color: #d4aba7; -fx-background-color: #f9ddd9;" styleClass="symmetry-btn" text="Vertically" />
+            <ToggleButton fx:id="removePixel" layoutX="22.0" layoutY="211.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="125.0" style="-fx-border-color: #d4aba7; -fx-background-color: #f9ddd9;" styleClass="symmetry-btn" text="Remove" />
          </children>
       </Pane>
       <Pane prefHeight="48.0" prefWidth="920.0" style="-fx-border-color: #e8e8e8; -fx-border-width: 2px; -fx-border-radius: 5px; -fx-background-color: #faddd9;">
          <children>
-            <Button layoutX="571.0" layoutY="14.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="109.0" style="-fx-border-color: none; -fx-background-color: #f5c4c0; -fx-padding: 0px;" text="New project" textFill="#4f1e1a">
+            <Button layoutX="571.0" layoutY="14.0" mnemonicParsing="false" onAction="#newProject" prefHeight="20.0" prefWidth="109.0" style="-fx-border-color: none; -fx-background-color: #f5c4c0; -fx-padding: 0px;" styleClass="nav-button" text="New project" textFill="#4f1e1a">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button layoutX="699.0" layoutY="14.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="109.0" style="-fx-border-color: none; -fx-background-color: #f5c4c0; -fx-padding: 0px;" text="Upload project" textFill="#4f1e1a">
+            <Button layoutX="699.0" layoutY="14.0" mnemonicParsing="false" onAction="#loadCanvas" prefHeight="20.0" prefWidth="109.0" style="-fx-border-color: none; -fx-background-color: #f5c4c0; -fx-padding: 0px;" styleClass="nav-button" text="Upload project" textFill="#4f1e1a">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button layoutX="828.0" layoutY="14.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="63.0" style="-fx-border-color: none; -fx-background-color: #f5c4c0; -fx-padding: 0px;" text="Save" textFill="#4f1e1a">
+            <Button layoutX="828.0" layoutY="14.0" mnemonicParsing="false" onAction="#saveCanvas" prefHeight="20.0" prefWidth="63.0" style="-fx-border-color: none; -fx-background-color: #f5c4c0; -fx-padding: 0px;" styleClass="nav-button" text="Save" textFill="#4f1e1a">
                <font>
                   <Font size="14.0" />
                </font>
